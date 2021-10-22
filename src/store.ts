@@ -7,7 +7,9 @@ import type { Session } from '@supabase/supabase-js'
 import type { Group, Object3D } from 'three'
 import type { GetState, SetState, StateSelector } from 'zustand'
 
+// 각속도 또는 회전속도 (Angular velocity) - 특정 축을 기준으로 각이 돌아가는 속력을 나타내는 벡터이다.
 export const angularVelocity = [0, 0.5, 0] as const
+// 카메라 시선 상태값 (Camera state) - 카메라의 시선을 정의하는 값이다.
 export const cameras = ['DEFAULT', 'FIRST_PERSON', 'BIRD_EYE'] as const
 
 const controls = {
