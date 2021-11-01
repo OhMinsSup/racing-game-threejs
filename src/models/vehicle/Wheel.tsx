@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+// Buffer-geometry short-cut for cylinder.
 import { useCylinder } from '@react-three/cannon'
 
 import { useStore } from '../../store'
@@ -26,9 +27,17 @@ interface WheelProps extends CylinderProps {
 }
 
 export const Wheel = forwardRef<Object3D, WheelProps>(({ leftSide, ...props }, ref) => {
+  // 휠의 radius 정보를 얻어온다.
   const { radius } = useStore((state) => state.wheelInfo)
+  // useLoader 및 GLTFLoader를 사용하는 편리한 후크이며
+  // 기본적으로 압축된 모델에 대해서만 로드되는 CDN 로드 draco 바이너리
   const { nodes, materials } = useGLTF('/models/wheel-draco.glb') as WheelGLTF
+  // 휠의 크기를 구한다.
   const scale = radius / 0.34
+
+  // 실린더용 버퍼 형상(BufferGeometry) 바로 가기.
+  // https://threejs.org/docs/index.html#api/en/core/BufferGeometry
+  // https://github.com/pmndrs/use-cannon#readme
   useCylinder(
     () => ({
       mass: 50,

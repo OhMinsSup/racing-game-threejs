@@ -2,6 +2,7 @@ import { createRef } from 'react'
 import create from 'zustand'
 import shallow from 'zustand/shallow'
 import type { RefObject } from 'react'
+// @react-three/fiber용 물리 기반 후크
 import type { PublicApi, WheelInfoOptions } from '@react-three/cannon'
 import type { Session } from '@supabase/supabase-js'
 import type { Group, Object3D } from 'three'
@@ -12,6 +13,7 @@ export const angularVelocity = [0, 0.5, 0] as const
 // 카메라 시선 상태값 (Camera state) - 카메라의 시선을 정의하는 값이다.
 export const cameras = ['DEFAULT', 'FIRST_PERSON', 'BIRD_EYE'] as const
 
+// 컨트롤러 상태값
 const controls = {
   backward: false,
   boost: false,
@@ -22,15 +24,20 @@ const controls = {
   right: false,
 }
 
+// debug 모드
 export const debug = false as const
 export const dpr = 1.5 as const
+// 현재 맵에 대한 layer level
 export const levelLayer = 1 as const
+// 최대 부스터 상태
 export const maxBoost = 100 as const
 export const position = [-110, 0.75, 220] as const
 export const rotation = [0, Math.PI / 2 + 0.35, 0] as const
+// 그림자 상태
 export const shadows = true as const
 export const stats = false as const
 
+// 차량의 상태
 export const vehicleConfig = {
   width: 1.7,
   height: -0.3,
