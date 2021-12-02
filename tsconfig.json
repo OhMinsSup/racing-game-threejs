@@ -4,6 +4,7 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "baseUrl": ".",
     // https://esbuild.github.io/content-types/#es-module-interop
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -15,9 +16,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["vite/client"],
+    "types": ["vite/client", "react/next", "react-dom/next"],
     "incremental": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["./src"],
-  "exclude": ["node_modues"],
+  "exclude": ["node_modues"]
 }
