@@ -1,9 +1,11 @@
+import 'inter-ui'
+import './styles.css'
+import React from 'react'
 import ReactDOM from 'react-dom'
 //  react-three-fiber에 유용한 도우미 함수들을 사용할 수 있도록 확장합니다.
 import { useGLTF, useTexture } from '@react-three/drei'
-import 'inter-ui'
-import './styles.css'
-import { App } from './App'
+import { App } from '@/App'
+import AppProvider from '@/provider'
 
 /**
  * Texture - 표면에 적용하거나 반사 또는 굴절 맵으로 적용할 텍스처를 만듭니다.
@@ -24,4 +26,13 @@ useGLTF.preload('/models/track-draco.glb', DECODERS)
 useGLTF.preload('/models/chassis-draco.glb', DECODERS)
 useGLTF.preload('/models/wheel-draco.glb', DECODERS)
 
-ReactDOM.render(<App />, document.getElementById('root'))
+// react 18에서 제공하는 동시성 모드를 사용하기 위해서 동시성 모드를 설정합니다.
+const rootElement = document.getElementById('root')
+if (!rootElement) throw new Error('Failed to find the root element')
+
+const Root = () => (
+  <AppProvider>
+    <App />
+  </AppProvider>
+)
+ReactDOM.createRoot(rootElement).render(<Root />)
