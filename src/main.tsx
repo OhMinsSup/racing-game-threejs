@@ -4,7 +4,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 //  react-three-fiber에 유용한 도우미 함수들을 사용할 수 있도록 확장합니다.
 import { useGLTF, useTexture } from '@react-three/drei'
-import { App } from '@/App'
+// import { App } from '@/App'
+import App from '@/screen/App'
 import AppProvider from '@/provider'
 
 /**

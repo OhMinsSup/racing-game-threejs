@@ -1,2 +1,2 @@
 export { default as useMouseHideEffect } from './useMouseHideEffect'
-export { default as useKeyboard } from './useKeyboard'
+export { default as useKeyboardControlEffect } from './useKeyboardControlEffect'

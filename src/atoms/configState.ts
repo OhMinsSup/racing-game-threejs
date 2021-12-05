@@ -1,4 +1,4 @@
-import { atom } from 'recoil'
+import { atom, useRecoilState } from 'recoil'
 
 // 컨트롤러 상태값
 const controls = {
@@ -14,13 +14,14 @@ const controls = {
 // 카메라 시선 상태값 (Camera state) - 카메라의 시선을 정의하는 값이다.
 export const cameras = ['DEFAULT', 'FIRST_PERSON', 'BIRD_EYE'] as const
 
+// helper 설정을 위한 값
 const helpers = {
   editor: false,
   help: false,
   leaderboard: false,
   map: false,
   sound: false,
-  camera: cameras[0],
+  camera: cameras[0] as typeof cameras[number],
 }
 
 // 컨트롤 타입
@@ -30,13 +31,23 @@ export type Controls = typeof controls
 export type Helpers = typeof helpers
 
 // 컨트롤 타입 atom 생성
-export const controlState = atom<Controls>({
-  key: 'controlState',
+export const controlsState = atom<Controls>({
+  key: 'controlsState',
   default: controls,
 })
 
+// controls 타입 상태변경 함수
+export function useControlsState() {
+  return useRecoilState(controlsState)
+}
+
 // helper 타입 atom 생성
-export const helperState = atom<Helpers>({
-  key: 'helperState',
+export const helpersState = atom<Helpers>({
+  key: 'helpersState',
   default: helpers,
 })
+
+// helper 타입 상태변경 함수
+export function useHelpersState() {
+  return useRecoilState(helpersState)
+}
