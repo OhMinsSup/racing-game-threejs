@@ -24,7 +24,7 @@ layers.enable(levelLayer)
  *  WebGL로 직접 무언가를 만들려면 상당히 많은 양의 코드를 짜야 하죠.
  *  만약 씬(scenes), 광원, 그림자, 물체, 텍스처 등 3차원 세계를 구현한다면 머리도 꽤 복잡하겠거니와 코드 자체도 굉장히 복잡할 겁니다.
  *  Three.js는 이런 3D 요소들의 처리를 도와 직관적인 코드를 짤 수 있도록 해줍니다.
- *  @exmaple - https://threejsfundamentals.org/threejs/lessons/kr/threejs-fundamentals.html
+ *  @exmaple - https://threejs.org/manual/#ko/fundamentals
  */
 
 export function App() {

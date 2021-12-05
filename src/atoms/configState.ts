@@ -1,4 +1,4 @@
-import { atom, useRecoilState } from 'recoil'
+import { atom, useRecoilState, useRecoilValue } from 'recoil'
 
 // 컨트롤러 상태값
 const controls = {
@@ -41,6 +41,11 @@ export function useControlsState() {
   return useRecoilState(controlsState)
 }
 
+// controls 타입 값 사용 함수
+export function useControlsValue() {
+  return useRecoilValue(controlsState)
+}
+
 // helper 타입 atom 생성
 export const helpersState = atom<Helpers>({
   key: 'helpersState',
@@ -50,4 +55,9 @@ export const helpersState = atom<Helpers>({
 // helper 타입 상태변경 함수
 export function useHelpersState() {
   return useRecoilState(helpersState)
+}
+
+// helper 타입 값 사용 함수
+export function useHelpersValue() {
+  return useRecoilValue(helpersState)
 }
