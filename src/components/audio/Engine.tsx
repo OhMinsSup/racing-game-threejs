@@ -3,15 +3,16 @@ import { PositionalAudio } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { MathUtils } from 'three'
 
-import type { PositionalAudio as PositionalAudioImpl } from 'three'
+import { mutation } from '@/libs/cache'
+import { useSettingValue } from '@/atoms/setting'
 
-import { mutation, useStore } from '../../store'
+import type { PositionalAudio as PositionalAudioImpl } from 'three'
 
 const { lerp } = MathUtils
 
 export const EngineAudio = () => {
   const ref = useRef<PositionalAudioImpl>(null)
-  const maxSpeed = useStore(({ vehicleConfig: { maxSpeed } }) => maxSpeed)
+  const { maxSpeed } = useSettingValue()
 
   const getVolume = () => 1 - mutation.speed / maxSpeed
 

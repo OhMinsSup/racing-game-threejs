@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react'
 import { PositionalAudio } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { MathUtils } from 'three'
-
-import { useVehicleValue } from '@/atoms/vehicleState'
+import { useSettingValue } from '@/atoms/setting'
 import { mutation } from '@/libs/cache'
 
 import type { PositionalAudio as PositionalAudioImpl } from 'three'
@@ -13,7 +12,7 @@ const { lerp } = MathUtils
 
 const AccelerateAudio = () => {
   const ref = useRef<PositionalAudioImpl>(null)
-  const { maxSpeed } = useVehicleValue()
+  const { maxSpeed } = useSettingValue()
 
   const getVolume = () => (2 * mutation.speed) / maxSpeed
 

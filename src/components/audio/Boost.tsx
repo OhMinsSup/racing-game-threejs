@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { PositionalAudio } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { mutation } from '@/libs/cache'
+import { useSettingValue } from '@/atoms/setting'
 
 import type { PositionalAudio as PositionalAudioImpl } from 'three'
 
-import { mutation, useStore } from '../../store'
-
 export const BoostAudio = () => {
   const ref = useRef<PositionalAudioImpl>(null)
-  const [boost, maxSpeed, sound] = useStore(({ controls: { boost }, vehicleConfig: { maxSpeed }, sound }) => [boost, maxSpeed, sound])
+  const { boost, maxSpeed, sound } = useSettingValue()
 
   useFrame(() => {
     const rate = Math.pow(mutation.speed / maxSpeed, 1.5) + 0.5

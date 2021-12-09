@@ -1,13 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { PositionalAudio } from '@react-three/drei'
+import { useSettingValue } from '@/atoms/setting'
 
 import type { PositionalAudio as PositionalAudioImpl } from 'three'
 
-import { useStore } from '../../store'
-
 export const HonkAudio = () => {
   const ref = useRef<PositionalAudioImpl>(null)
-  const [honk, sound] = useStore(({ controls: { honk }, sound }) => [honk, sound])
+  const { honk, sound } = useSettingValue()
 
   useEffect(() => {
     if (ref.current && sound) {

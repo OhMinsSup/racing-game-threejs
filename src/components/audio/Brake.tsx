@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { PositionalAudio } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { mutation } from '@/libs/cache'
+import { useSettingValue } from '@/atoms/setting'
 
 import type { PositionalAudio as PositionalAudioImpl } from 'three'
 
-import { mutation, useStore } from '../../store'
-
 export const BrakeAudio = () => {
   const ref = useRef<PositionalAudioImpl>(null)
-  const [brake, sound] = useStore(({ controls: { brake }, sound }) => [brake, sound])
+  const { brake, sound } = useSettingValue()
 
   useFrame(() => {
     if (mutation.speed <= 10 && ref.current?.isPlaying) ref.current.stop()
