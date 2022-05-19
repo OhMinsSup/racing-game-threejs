@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 //  react-three-fiber에 유용한 도우미 함수들을 사용할 수 있도록 확장합니다.
 import { useGLTF, useTexture } from '@react-three/drei'
 import 'inter-ui'
@@ -24,4 +24,8 @@ useGLTF.preload('/models/track-draco.glb', DECODERS)
 useGLTF.preload('/models/chassis-draco.glb', DECODERS)
 useGLTF.preload('/models/wheel-draco.glb', DECODERS)
 
-ReactDOM.render(<App />, document.getElementById('root'))
+// react 18에서 제공하는 동시성 모드를 사용하기 위해서 동시성 모드를 설정합니다.
+const rootElement = document.getElementById('root')
+if (!rootElement) throw new Error('Failed to find the root element')
+
+ReactDOM.createRoot(rootElement).render(<App />)

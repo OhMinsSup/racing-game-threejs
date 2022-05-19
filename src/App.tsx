@@ -28,7 +28,7 @@ layers.enable(levelLayer)
  */
 
 export function App() {
-  const [light, setLight] = useState<DirectionalLight>()
+  const [light, setLight] = useState<DirectionalLight | null>(null)
   const [actions, dpr, editor, shadows] = useStore((s) => [s.actions, s.dpr, s.editor, s.shadows])
   const { onCheckpoint, onFinish, onStart } = actions
 
@@ -45,7 +45,7 @@ export function App() {
       {/* 먼저 Renderer가 있습니다. Three.js의 핵심 객체입니다. Renderer는 Scene과 Camera 객체를 넘겨 받아 카메라의 절두체(frustum) 안 3D 씬의 일부를 평면(2차원) 이미지로 렌더링합니다. */}
       {/* Canvas - Canvas 객체는 React Three Fiber Scene을 정의하기 시작하는 곳입니다. */}
       {/* Canvas에는 기본적으로 gl이라는 props가 있는데 해당 props는 Renderer를 콜백으로 넘겨준다. */}
-      <Canvas key={`${dpr}${shadows}`} mode="concurrent" dpr={[1, dpr]} shadows={shadows} camera={{ position: [0, 5, 15], fov: 50 }}>
+      <Canvas key={`${dpr}${shadows}`} dpr={[1, dpr]} shadows={shadows} camera={{ position: [0, 5, 15], fov: 50 }}>
         {/* field of view(시야각) 거리에 따라 선형적으로 밀도가 높아집니다. */}
         <fog attach="fog" args={['white', 0, 500]} />
         <Sky sunPosition={[100, 10, 100]} distance={1000} />
