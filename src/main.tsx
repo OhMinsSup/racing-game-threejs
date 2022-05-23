@@ -1,9 +1,18 @@
+import React, { Suspense, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 //  react-three-fiber에 유용한 도우미 함수들을 사용할 수 있도록 확장합니다.
-import { useGLTF, useTexture } from '@react-three/drei'
+import { useGLTF, useTexture, useProgress } from '@react-three/drei'
 import 'inter-ui'
 import './styles.css'
-import { App } from './App'
+
+import type { Dispatch, SetStateAction } from 'react'
+
+import { useStore } from './store'
+import { setupSession, unAuthenticateUser } from './data'
+import { Keys } from './ui/Help'
+import { Auth } from './ui/Auth'
+
+const App = React.lazy(() => import('./App'))
 
 /**
  * Texture - 표면에 적용하거나 반사 또는 굴절 맵으로 적용할 텍스처를 만듭니다.
@@ -28,4 +37,68 @@ useGLTF.preload('/models/wheel-draco.glb', DECODERS)
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Failed to find the root element')
 
-ReactDOM.createRoot(rootElement).render(<App />)
+function Ready({ setReady }: { setReady: Dispatch<SetStateAction<boolean>> }) {
+  useEffect(() => {
+    console.log('ready')
+    return () => {
+      console.log('unmounting')
+      setReady(true)
+    }
+  }, [])
+
+  console.log('rendering')
+
+  return null
+}
+
+const Main = () => {
+  const [ready, setReady] = useState(false)
+  const [clicked, setClicked] = useState(false)
+  const [session, set] = useStore((state) => [state.session, state.set])
+  const { progress } = useProgress()
+
+  useEffect(() => {
+    if (clicked && ready) set({ ready: true })
+  }, [ready, clicked])
+
+  useEffect(() => {
+    setupSession(set)
+  }, [])
+
+  return (
+    <>
+      <Suspense fallback={<Ready setReady={setReady} />}>
+        <App />
+      </Suspense>
+      <div className={`fullscreen bg ${ready ? 'ready' : 'notready'} ${clicked && 'clicked'}`}>
+        <div className="stack">
+          <div className="intro-keys">
+            <Keys style={{ paddingBottom: 20 }} />
+            <a
+              className="continue-link"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                ready && setClicked(true)
+              }}
+            >
+              {!ready ? <div>loading {progress.toFixed()} %</div> : 'Click to continue'}
+            </a>
+          </div>
+          {session?.user?.aud !== 'authenticated' ? (
+            <Auth />
+          ) : (
+            <div>
+              Hello {session.user.user_metadata.full_name}
+              <button className="logout" onClick={unAuthenticateUser}>
+                Logout
+              </button>{' '}
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  )
+}
+
+ReactDOM.createRoot(rootElement).render(<Main />)

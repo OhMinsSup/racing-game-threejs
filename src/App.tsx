@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Layers } from 'three'
 import { Canvas } from '@react-three/fiber'
 import { Physics, Debug } from '@react-three/cannon'
@@ -10,7 +10,7 @@ import { HideMouse, Keyboard } from './controls'
 import { Cameras } from './effects'
 import { Ramp, Track, Vehicle, Goal, Train, Heightmap } from './models'
 import { angularVelocity, levelLayer, position, rotation, useStore } from './store'
-import { Checkpoint, Clock, Speed, Minimap, Intro, Help, Editor, LeaderBoard, Finished } from './ui'
+import { Checkpoint, Clock, Speed, Minimap, Help, Editor, LeaderBoard, Finished } from './ui'
 import { useToggle } from './useToggle'
 
 const layers = new Layers()
@@ -27,7 +27,7 @@ layers.enable(levelLayer)
  *  @exmaple - https://threejsfundamentals.org/threejs/lessons/kr/threejs-fundamentals.html
  */
 
-export function App() {
+function App() {
   const [light, setLight] = useState<DirectionalLight | null>(null)
   const [actions, dpr, editor, shadows] = useStore((s) => [s.actions, s.dpr, s.editor, s.shadows])
   const { onCheckpoint, onFinish, onStart } = actions
@@ -41,7 +41,7 @@ export function App() {
   const ToggledStats = useToggle(Stats, 'stats')
 
   return (
-    <Intro>
+    <>
       {/* 먼저 Renderer가 있습니다. Three.js의 핵심 객체입니다. Renderer는 Scene과 Camera 객체를 넘겨 받아 카메라의 절두체(frustum) 안 3D 씬의 일부를 평면(2차원) 이미지로 렌더링합니다. */}
       {/* Canvas - Canvas 객체는 React Three Fiber Scene을 정의하기 시작하는 곳입니다. */}
       {/* Canvas에는 기본적으로 gl이라는 props가 있는데 해당 props는 Renderer를 콜백으로 넘겨준다. */}
@@ -107,6 +107,8 @@ export function App() {
       <LeaderBoard />
       <HideMouse />
       <Keyboard />
-    </Intro>
+    </>
   )
 }
+
+export default App

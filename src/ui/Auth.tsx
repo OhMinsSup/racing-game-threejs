@@ -38,7 +38,9 @@ export function Auth() {
     try {
       await authenticateUser(provider)
     } catch (error) {
-      alert(error.error_description || error.message)
+      if (error instanceof Error) {
+        alert(error.message)
+      }
     }
   }
 

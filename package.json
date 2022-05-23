@@ -20,6 +20,7 @@
     "lodash-es": "^4.17.21",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-use": "^17.4.0",
     "recoil": "^0.5.2",
     "three": "^0.140.2",
     "use-asset": "^1.0.4",

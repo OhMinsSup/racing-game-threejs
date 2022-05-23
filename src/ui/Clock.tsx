@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { addEffect } from '@react-three/fiber'
 import { useStore } from '../store'
 import { readableTime } from './LeaderBoard'
+import { getTargetElement } from '@/libs/brower-utils/dom'
 
 const getTime = (finished: number, start: number) => {
   const time = start && !finished ? Date.now() - start : 0
@@ -17,12 +18,11 @@ export function Clock() {
   useEffect(() => {
     let lastTime = 0
     return addEffect((time) => {
-      if (!ref.current || time - lastTime < 100) return
+      const ele = getTargetElement(ref) as HTMLSpanElement
+      if (!ele || time - lastTime < 100) return
       lastTime = time
       text = getTime(finished, start)
-      if (ref.current.innerText !== text) {
-        ref.current.innerText = text
-      }
+      if (ele.innerText !== text) ele.innerText = text
     })
   }, [finished, start])
 

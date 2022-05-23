@@ -1,3 +1,4 @@
+import addEventListenerWrap from '@/libs/brower-utils/addEventListener'
 import { useEffect } from 'react'
 import { cameras, useStore } from '../store'
 
@@ -38,12 +39,12 @@ function useKeys(keyConfig: KeyConfig[]) {
       if (up) fn(false)
     }
 
-    window.addEventListener('keydown', downHandler, { passive: true })
-    window.addEventListener('keyup', upHandler, { passive: true })
+    const unsubscribeForKeydown = addEventListenerWrap(window, 'keydown', downHandler, { passive: true })
+    const unsubscribeForKeyup = addEventListenerWrap(window, 'keyup', upHandler, { passive: true })
 
     return () => {
-      window.removeEventListener('keydown', downHandler)
-      window.removeEventListener('keyup', upHandler)
+      unsubscribeForKeydown.remove()
+      unsubscribeForKeyup.remove()
     }
   }, [keyConfig])
 }

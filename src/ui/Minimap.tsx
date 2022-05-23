@@ -89,6 +89,7 @@ export function Minimap({ size = 200 }): JSX.Element {
       {createPortal(
         <>
           <ambientLight intensity={1} />
+          {/* @ts-ignore */}
           <sprite ref={miniMap} position={screenPosition} scale={[size, size, 1]}>
             <spriteMaterial map={buffer.texture} alphaMap={mask} />
           </sprite>

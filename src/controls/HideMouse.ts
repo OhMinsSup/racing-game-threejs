@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import debounce from 'lodash-es/debounce'
+import addEventListenerWrap from '@/libs/brower-utils/addEventListener'
 
 // 기본 상태가 화면에서 마우스가 액션을 안하면 숨기고 다시 보여줌
 export function HideMouse({ delay = 3000 }) {
@@ -24,8 +25,9 @@ export function HideMouse({ delay = 3000 }) {
       hideMouse()
     }
 
-    window.addEventListener('mousemove', onMouseMovement, { passive: true })
-    return () => window.removeEventListener('mousemove', onMouseMovement)
+    const unsubscribe = addEventListenerWrap(window, 'mousemove', onMouseMovement, { passive: true })
+    return () => unsubscribe.remove()
   }, [delay])
+
   return null
 }
