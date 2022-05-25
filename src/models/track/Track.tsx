@@ -84,6 +84,7 @@ export function Track(props: GroupProps): JSX.Element {
         <mesh geometry={n.mountains.geometry} material={n.mountains.material} {...config} />
         <mesh geometry={n.terrain.geometry} material={n.terrain.material} {...config} />
         <mesh geometry={n.water.geometry}>
+          {/* @ts-ignore */}
           <MeshDistortMaterial skinning={true} speed={4} map={m.ColorPaletteWater.map} roughness={0} side={DoubleSide} />
           <ToggledPositionalAudio url="/sounds/water.mp3" loop autoplay distance={10} />
         </mesh>

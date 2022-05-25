@@ -38,7 +38,7 @@ export function Skid({ count = 500, opacity = 0.5, size = 0.4 }: SkidProps): JSX
     return () => {
       ref.current!.geometry.rotateX(Math.PI / 2)
     }
-  })
+  }, [])
 
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, count]}>

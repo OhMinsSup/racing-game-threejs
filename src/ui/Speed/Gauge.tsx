@@ -42,6 +42,7 @@ export const Gauge = () => {
 
   let offset = getOffset()
 
+  // 이 컴포넌트를 렌더 루프에 등록하고 매 프레임마다 메시를 회전합니다.
   useEffect(() =>
     addEffect(() => {
       if (!ref.current) return

@@ -52,13 +52,16 @@ export const Wheel = forwardRef<Object3D, WheelProps>(({ leftSide, ...props }, r
     [radius],
   )
   return (
-    <group ref={ref} dispose={null}>
-      <group scale={scale}>
-        <group scale={leftSide ? -1 : 1}>
-          <mesh castShadow geometry={nodes.Mesh_14.geometry} material={materials['Material.002']} />
-          <mesh castShadow geometry={nodes.Mesh_14_1.geometry} material={materials['Material.009']} />
+    <>
+      {/* @ts-ignore */}
+      <group ref={ref} dispose={null}>
+        <group scale={scale}>
+          <group scale={leftSide ? -1 : 1}>
+            <mesh castShadow geometry={nodes.Mesh_14.geometry} material={materials['Material.002']} />
+            <mesh castShadow geometry={nodes.Mesh_14_1.geometry} material={materials['Material.009']} />
+          </group>
         </group>
       </group>
-    </group>
+    </>
   )
 })
